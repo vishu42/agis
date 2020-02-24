@@ -1,3 +1,3 @@
 FROM brigadecore/brigade-worker
 
-COPY src/ /node-modules/agis
+COPY src/ /node_modules/agis
