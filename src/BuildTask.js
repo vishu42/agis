@@ -7,23 +7,23 @@ class BuildTask {
     this.p = p;
   }
 
-  static tarSharedDir() {
+  tarSharedDir() {
     return `tar -cf sharedDir.tar ${SHARED_DIR}\n`
   }
 
-  static tarBuild(exclusion = ".git", tarName = 'build.tar') {
+  tarBuild(exclusion = ".git", tarName = 'build.tar') {
     return `tar --exclude="${exclusion}" -cf ${tarName} *\n`
   }
 
-  static moveTarsToSharedDir() {
+  moveTarsToSharedDir() {
     return `mv *.tar ${SHARED_DIR}`
   }
 
-  static restoreBuild(tarName = 'build.tar') {
+  restoreBuild(tarName = 'build.tar') {
     return `tar -xf ${SHARED_DIR}/${tarName}\n`
   }
 
-  static fetchLatestGitTag() {
+  fetchLatestGitTag() {
     return [
       `git describe --tags --abbrev=0 > echo > ${SHARED_DIR}/APP_SEM_VER.txt`,
       `echo Current Tag is && cat ${SHARED_DIR}/APP_SEM_VER.txt`
@@ -38,7 +38,7 @@ class BuildTask {
     }
   }
 
-  static bumpTag(VERSION_INDEX = 2) {
+  bumpTag(VERSION_INDEX = 2) {
     return [
       `IFS='.' read -ra APP_VER_TOKENIZED <<<"$APP_VER"`,
       `APP_VER_TOKENIZED[${VERSION_INDEX}]=$(( APP_VER_TOKENIZED[${VERSION_INDEX}] + 1))`,
@@ -48,14 +48,14 @@ class BuildTask {
     ].join("\n")
   }
 
-  static addAndPushExportedTag() {
+  addAndPushExportedTag() {
     return [
       `git tag $APP_VER`,
       `git push --tags`,
     ].join("\n")
   }
 
-  static fetchTagBumpItAndPushIt() {
+  fetchTagBumpItAndPushIt() {
     return [
       this.fetchLatestGitTag(),
       this.exportTag(),
