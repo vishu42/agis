@@ -10,7 +10,7 @@ function flattenObj(obj, parent, res = {}) {
   return res;
 }
 
-function helmUpgradeCommand(values, release, chart, ns, dryrun=false) {
+function helmUpgradeCommand(values, release, chart, ns, dryrun) {
   values = flattenObj(values)
   let command = "helm upgrade \\\n";
   if (dryrun) command += "--dry-run --debug \\\n"

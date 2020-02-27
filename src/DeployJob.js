@@ -9,7 +9,7 @@ class DeployJob {
     this.p = p;
   }
 
-  deploy(deployEnvironment, values) {
+  deploy(deployEnvironment, values, dryrun=false) {
     const deployEnvSuffix = deployEnvironment.split('-').pop()
     let deployJob = new Job(`deploy-to-${deployEnvSuffix}`, 'alpine/helm:2.16.1')
     deployJob.storage.enabled = true
@@ -20,7 +20,7 @@ class DeployJob {
       "cd /src",
       new BuildTask(this.e, this.p).exportTag(),
       "helm version",
-      helmUpgradeCommand(values, `${deployEnvironment}-${this.p.secrets.appName}`, `./helm/${this.p.secrets.appName}`, deployEnvironment)
+      helmUpgradeCommand(values, `${deployEnvironment}-${this.p.secrets.appName}`, `./helm/${this.p.secrets.appName}`, deployEnvironment, dryrun)
     ]
     return deployJob;
   }
