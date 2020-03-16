@@ -4,4 +4,5 @@ module.exports = {
   helmUpgradeCommand: require('./HelmUpgradeCommand'),
   DeployJob: require('./DeployJob'),
   Events: require('./Events'),
+  Scriptor: require('./Scriptor'),
 }
