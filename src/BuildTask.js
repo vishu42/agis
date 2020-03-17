@@ -8,11 +8,11 @@ class BuildTask {
   }
 
   tarSharedDir() {
-    return `tar -cf sharedDir.tar ${SHARED_DIR}\n`
+    return `tar -cf sharedDir.tar ${SHARED_DIR}`
   }
 
   tarBuild(exclusion = ".git", tarName = 'build.tar') {
-    return `tar --exclude="${exclusion}" -cf ${tarName} *\n`
+    return `tar --exclude="${exclusion}" -cf ${tarName} *`
   }
 
   moveTarsToSharedDir() {
@@ -20,7 +20,7 @@ class BuildTask {
   }
 
   restoreBuild(tarName = 'build.tar') {
-    return `tar -xf ${SHARED_DIR}/${tarName}\n`
+    return `tar -xf ${SHARED_DIR}/${tarName}`
   }
 
   fetchLatestGitTag() {
@@ -32,9 +32,9 @@ class BuildTask {
 
   exportTag() {
     if (this.e.payload.app_ver) {
-      return `export APP_VER=${this.e.payload.app_ver}\n`
+      return `export APP_VER=${this.e.payload.app_ver}`
     } else {
-      return `export APP_VER=$(cat ${SHARED_DIR}/APP_SEM_VER.txt)\n`
+      return `export APP_VER=$(cat ${SHARED_DIR}/APP_SEM_VER.txt)`
     }
   }
 
